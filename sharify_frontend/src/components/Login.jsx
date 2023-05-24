@@ -5,8 +5,10 @@ import { FcGoogle } from "react-icons/fc";
 import ShareVideo from "../assets/share.mp4";
 import Logo from "../assets/logowhite.png";
 import jwt_decode from "jwt-decode";
+import { client } from "../client";
 
 export default function Login() {
+  const navigate = useNavigate();
   const responseGoogle = (response) => {
     const decoded = jwt_decode(response.credential); // We Used JSON Web Token to convert credential
     // to details of the person logged in
@@ -15,9 +17,12 @@ export default function Login() {
     const user = {
       _id: user_decoded[1], // "_" is used to tell which document we are creating (user)
       _type: "user",
-      username: user_decoded[0],
+      userName: user_decoded[0],
       image: user_decoded[2],
     };
+    client.createIfNotExists(user).then(() => {
+      navigate("/", { replace: true });
+    });
     console.log(user);
   };
   return (
