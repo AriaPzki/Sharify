@@ -20,6 +20,7 @@ export default function Login() {
       userName: user_decoded[0],
       image: user_decoded[2],
     };
+    localStorage.setItem("user", JSON.stringify(user));
     client.createIfNotExists(user).then(() => {
       navigate("/", { replace: true });
     });
