@@ -59,6 +59,20 @@ export default function Sidebar({ user, closeToggle }) {
           ))}
         </div>
       </div>
+      {user && (
+        <Link
+          to={`/user-profile/${user._id}`}
+          className="flex my-5 mb-3 gap-2 p-2 bg-white items-center rounded-lg shadow-lg mx-3"
+          onClick={handleCloseSidebar}
+        >
+          <img
+            className="w-10 h-10 rounded-full"
+            src={user.image}
+            alt="user-profile"
+          />
+          <p>{user.userName}</p>
+        </Link>
+      )}
     </div>
   );
 }
